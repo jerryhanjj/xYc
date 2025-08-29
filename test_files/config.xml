@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system>
+        <hostname>router1</hostname>
+        <domain-name>example.com</domain-name>
+        <time-zone>UTC</time-zone>
+        <ntp>
+            <server>pool.ntp.org</server>
+            <server>time.nist.gov</server>
+        </ntp>
+    </system>
+    <interfaces>
+        <interface>
+            <name>GigabitEthernet0/0/1</name>
+            <description>WAN Interface</description>
+            <ip-address>192.168.1.1</ip-address>
+            <subnet-mask>255.255.255.0</subnet-mask>
+            <enabled>true</enabled>
+        </interface>
+        <interface>
+            <name>GigabitEthernet0/0/2</name>
+            <description>LAN Interface</description>
+            <ip-address>10.0.0.1</ip-address>
+            <subnet-mask>255.255.255.0</subnet-mask>
+            <enabled>true</enabled>
+        </interface>
+    </interfaces>
+    <routing>
+        <static-route>
+            <destination>0.0.0.0/0</destination>
+            <next-hop>192.168.1.254</next-hop>
+        </static-route>
+    </routing>
+    <security>
+        <firewall>
+            <enabled>true</enabled>
+            <default-policy>deny</default-policy>
+        </firewall>
+    </security>
+</configuration>

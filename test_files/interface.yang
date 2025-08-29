@@ -1,0 +1,158 @@
+module interface-management {
+    yang-version 1.1;
+    namespace "http://example.com/yang/interface";
+    prefix "if-mgmt";
+
+    import ietf-interfaces {
+        prefix "if";
+    }
+
+    organization "Example Organization";
+    contact "support@example.com";
+    description
+        "YANG module for interface management configuration
+         and operational data.";
+
+    revision 2023-08-29 {
+        description "Initial revision";
+        reference "RFC 8343";
+    }
+
+    container interface-config {
+        description "Interface configuration container";
+        
+        list interface {
+            key "name";
+            description "List of network interfaces";
+            
+            leaf name {
+                type string;
+                description "Interface name";
+            }
+            
+            leaf description {
+                type string;
+                description "Interface description";
+            }
+            
+            leaf enabled {
+                type boolean;
+                default true;
+                description "Interface administrative state";
+            }
+            
+            leaf mtu {
+                type uint16 {
+                    range "68..65535";
+                }
+                default 1500;
+                description "Maximum transmission unit";
+            }
+            
+            container ipv4 {
+                description "IPv4 configuration";
+                
+                leaf address {
+                    type string;
+                    description "IPv4 address";
+                }
+                
+                leaf netmask {
+                    type string;
+                    description "IPv4 netmask";
+                }
+            }
+            
+            container ipv6 {
+                description "IPv6 configuration";
+                
+                leaf address {
+                    type string;
+                    description "IPv6 address";
+                }
+                
+                leaf prefix-length {
+                    type uint8 {
+                        range "0..128";
+                    }
+                    description "IPv6 prefix length";
+                }
+            }
+            
+            leaf-list vlan-ids {
+                type uint16 {
+                    range "1..4094";
+                }
+                description "VLAN IDs associated with interface";
+            }
+        }
+    }
+    
+    container interface-state {
+        config false;
+        description "Interface operational state";
+        
+        list interface {
+            key "name";
+            description "List of interface operational data";
+            
+            leaf name {
+                type string;
+                description "Interface name";
+            }
+            
+            leaf oper-status {
+                type enumeration {
+                    enum up;
+                    enum down;
+                    enum testing;
+                    enum unknown;
+                    enum dormant;
+                    enum not-present;
+                    enum lower-layer-down;
+                }
+                description "Operational status of the interface";
+            }
+            
+            leaf speed {
+                type uint64;
+                units "bits/second";
+                description "Interface speed";
+            }
+            
+            container statistics {
+                description "Interface statistics";
+                
+                leaf in-octets {
+                    type uint64;
+                    description "Incoming octets";
+                }
+                
+                leaf out-octets {
+                    type uint64;
+                    description "Outgoing octets";
+                }
+                
+                leaf in-packets {
+                    type uint64;
+                    description "Incoming packets";
+                }
+                
+                leaf out-packets {
+                    type uint64;
+                    description "Outgoing packets";
+                }
+                
+                leaf in-errors {
+                    type uint64;
+                    description "Incoming error packets";
+                }
+                
+                leaf out-errors {
+                    type uint64;
+                    description "Outgoing error packets";
+                }
+            }
+        }
+    }
+}

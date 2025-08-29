@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <users>
+        <user id="1">
+            <name>Alice Johnson</name>
+            <email>alice@example.com</email>
+            <role>administrator</role>
+            <created>2023-01-15</created>
+        </user>
+        <user id="2">
+            <name>Bob Smith</name>
+            <email>bob@example.com</email>
+            <role>user</role>
+            <created>2023-02-20</created>
+        </user>
+        <user id="3">
+            <name>Carol Davis</name>
+            <email>carol@example.com</email>
+            <role>moderator</role>
+            <created>2023-03-10</created>
+        </user>
+    </users>
+    <settings>
+        <theme>dark</theme>
+        <language>en-US</language>
+        <notifications>true</notifications>
+        <auto-save>true</auto-save>
+    </settings>
+</data>
