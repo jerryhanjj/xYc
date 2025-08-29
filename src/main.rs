@@ -140,9 +140,8 @@ fn analyze_file(
         let trimmed = line.trim();
         if trimmed.is_empty() {
             blanks += 1;
-        } else if file_type == "XML" && (trimmed.starts_with("<!--") || trimmed.contains("<!--")) {
-            comments += 1;
-        } else if file_type == "YANG" && (trimmed.starts_with("//") || trimmed.starts_with("/*")) {
+        } else if (file_type == "XML" && (trimmed.starts_with("<!--") || trimmed.contains("<!--")))
+                || (file_type == "YANG" && (trimmed.starts_with("//") || trimmed.starts_with("/*"))) {
             comments += 1;
         }
     }
@@ -187,7 +186,7 @@ fn display_results(results: &[FileStats], detailed: bool) {
             
             println!(
                 " {:<45} {:<8} {:<8} {:<10} {:<8} {:<8}",
-                format!("{}", stats.file_path).bright_white(),
+                stats.file_path.to_string().bright_white(),
                 type_color,
                 stats.lines.to_string().bright_magenta(),
                 stats.characters.to_string().bright_cyan(),
