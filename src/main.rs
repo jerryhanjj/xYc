@@ -15,7 +15,7 @@ struct FileStats {
 }
 
 fn main() {
-    let matches = Command::new("xYc")
+    let matches = Command::new(env!("CARGO_PKG_NAME"))
         .about("统计XML和YANG文件的行数、字符数、注释行和空白行")
         .version("1.0")
         .arg(
