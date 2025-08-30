@@ -132,16 +132,17 @@ fn analyze_file(
     let lines: Vec<&str> = content.lines().collect();
     let total_lines = lines.len();
     let characters = content.chars().count();
-    
+
     let mut comments = 0;
     let mut blanks = 0;
-    
+
     for line in &lines {
         let trimmed = line.trim();
         if trimmed.is_empty() {
             blanks += 1;
         } else if (file_type == "XML" && (trimmed.starts_with("<!--") || trimmed.contains("<!--")))
-                || (file_type == "YANG" && (trimmed.starts_with("//") || trimmed.starts_with("/*"))) {
+            || (file_type == "YANG" && (trimmed.starts_with("//") || trimmed.starts_with("/*")))
+        {
             comments += 1;
         }
     }
@@ -176,14 +177,14 @@ fn display_results(results: &[FileStats], detailed: bool) {
             "Blanks".bright_white().bold()
         );
         println!("{}", "━".repeat(95).bright_blue());
-        
+
         for stats in results {
             let type_color = match stats.file_type.as_str() {
                 "XML" => stats.file_type.bright_yellow(),
                 "YANG" => stats.file_type.bright_cyan(),
                 _ => stats.file_type.white(),
             };
-            
+
             println!(
                 " {:<45} {:<8} {:<8} {:<10} {:<8} {:<8}",
                 stats.file_path.to_string().bright_white(),
@@ -206,7 +207,9 @@ fn display_results(results: &[FileStats], detailed: bool) {
     let mut total_blanks = 0;
 
     for stats in results {
-        let entry = language_stats.entry(stats.file_type.clone()).or_insert((0, 0, 0, 0, 0));
+        let entry = language_stats
+            .entry(stats.file_type.clone())
+            .or_insert((0, 0, 0, 0, 0));
         entry.0 += 1; // files
         entry.1 += stats.lines; // lines
         entry.2 += stats.characters; // characters
