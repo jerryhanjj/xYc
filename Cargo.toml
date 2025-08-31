@@ -2,8 +2,38 @@
 name = "xYc"
 version = "0.1.0"
 edition = "2021"
+authors = ["jerryhanjj <jerryhanjj@126.com>"]
+description = "A command-line tool for analyzing XML and YANG files - count lines, characters, comments, and blank lines"
+license = "MIT"
+repository = "https://github.com/jerryhanjj/xYc"
+homepage = "https://github.com/jerryhanjj/xYc"
+documentation = "https://github.com/jerryhanjj/xYc"
+readme = "README.md"
+keywords = ["xml", "yang", "analysis", "cli", "statistics"]
+categories = ["command-line-utilities", "development-tools"]
+include = [
+    "src/**/*",
+    "Cargo.toml",
+    "README.md",
+    "LICENSE",
+]
+
+[[bin]]
+name = "xyc"
+path = "src/main.rs"
 
 [dependencies]
-clap = { version = "4.0", features = ["derive"] }
-walkdir = "2.3"
-colored = "2.0"
+clap = { version = "4.5", features = ["derive"] }
+walkdir = "2.5"
+colored = "2.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
